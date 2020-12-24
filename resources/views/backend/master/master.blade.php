@@ -3,7 +3,7 @@
     <head>
 
         <title> Shopules Admin </title>
-        
+        <meta name="csrf-token" content="{{ csrf_token() }}">     
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -109,7 +109,7 @@
                 </li>
 
                 <li>
-                    <a class="app-menu__item {{ Request::is('order') ? 'active' : '' }}" href="">
+                    <a class="app-menu__item {{ Request::is('order*') ? 'active' : '' }}" href="{{route('order_list')}}">
                         <i class="app-menu__icon icofont-prestashop"></i>
                         <span class="app-menu__label">
                             Order

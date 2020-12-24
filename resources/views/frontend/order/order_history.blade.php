@@ -24,11 +24,11 @@
 								<span class="badge text-white rounded-pill bg-warning">
 									{{$order->status}}
 								</span>
-							@elseif ($status == "Confirm")
+							@elseif ($order->status == "Confirm")
 								<span class="badge text-white rounded-pill bg-info">
 									{{$order->status}}
 								</span>
-							@elseif ($status == "Delivery")
+							@elseif ($order->status == "Delivery")
 								<span class="badge text-white rounded-pill bg-success">
 									{{$order->status}}
 								</span>
