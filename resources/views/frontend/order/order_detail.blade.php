@@ -16,24 +16,24 @@ use App\Items;
 	<!-- Shopping Cart Div -->
 	<div class="row mt-5 shoppingcart_div">
 		<div class="col-12">
-			<a href="{{route('home')}}" class="btn mainfullbtncolor btn-secondary float-right px-3" > 
-				<i class="icofont-shopping-cart"></i>
-				Back To Home 
+			<a href="{{route('orders.index')}}" class="btn mainfullbtncolor btn-secondary float-right px-3" > 
+				<i class="icofont-reply"></i>
+				Order History 
 			</a>
 		</div>
 	</div>
-		<div class="mt-5 d-flex justify-content-between mb-3">
-			@php
-				$order=Order::find($item_orders[0]->order_id);
-			@endphp
-			<div class="p-2 text-muted">
-				<h4>Date : {{$order->orderdate}}	</h4> 
-			</div>
-			<div class="p-2 text-muted">
-				<h4>Voucherno - #{{$order->voucherno}} </h4>
-			</div>
-		
-		</div>	
+	<div class="mt-5 d-flex justify-content-between mb-3">
+		@php
+			$order=Order::find($item_orders[0]->order_id);
+		@endphp
+		<div class="p-2 text-muted">
+			<h4>Date : {{$order->orderdate}}	</h4> 
+		</div>
+		<div class="p-2 text-muted">
+			<h4>Voucherno - #{{$order->voucherno}} </h4>
+		</div>
+	
+	</div>	
 	<div class="row  shoppingcart_div">
 		<div class="table-responsive">
 			<table class="table" border="0">
@@ -93,6 +93,15 @@ use App\Items;
 					</tr>
 				</tfoot>
 			</table>
+		</div>
+	</div>
+	<!-- Shopping Cart Div -->
+	<div class="row mt-5 shoppingcart_div">
+		<div class="col-12">
+			<a href="{{route('orders.index')}}" class="btn mainfullbtncolor btn-secondary float-right px-3" > 
+				<i class="icofont-reply"></i>
+				Order History 
+			</a>
 		</div>
 	</div>
 </div>

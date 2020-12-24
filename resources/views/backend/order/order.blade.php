@@ -5,6 +5,7 @@ use App\Order;
 session_start();
 $label_S_date='';
 $label_e_date='';
+$all='';
 $orderStatus = "Order";
 $confirmStatus = "Confirm";
 $deliveryStatus = "Delivery";
@@ -16,6 +17,14 @@ $deleteStatus = "Delete";
 // unset($_SESSION['endDate']);
 // temp
     if (isset($_SESSION['startDate'])&&isset($_SESSION['endDate'])) {
+    // for button active
+    $search=' active';
+    $alls=' ';
+    $today=' ';
+    $search_chk='checked';
+    $alls_chk=' ';
+    $today_chk=' ';
+    // for button active
     // for label
     $label_S_date=$_SESSION['startDate'];
     $label_e_date=$_SESSION['endDate'];
@@ -35,7 +44,29 @@ $deleteStatus = "Delete";
     $cancel_orders=Order::where('status','=',$deleteStatus)
                           ->whereBetween('orderdate', [$startDate, $endDate])
                           ->get();
+    }elseif(isset($_SESSION['all'])){
+    // for button active
+    $alls=' active';
+    $search=' ';
+    $today=' ';
+    $search_chk='';
+    $alls_chk='checked';
+    $today_chk=' ';
+    // for button active
+    $all=$_SESSION['all'];
+    $pending_orders=Order::where('status','=',$orderStatus)->get();
+    $confirm_orders=Order::where('status','=',$confirmStatus)->get();
+    $delivery_orders=Order::where('status','=',$deliveryStatus)->get();
+    $cancel_orders=Order::where('status','=',$deleteStatus)->get();
     }else{
+    // for button active
+    $today=' active';
+    $alls=' ';
+    $search=' ';
+    $search_chk='';
+    $alls_chk='';
+    $today_chk='checked';
+    // for button active
     date_default_timezone_set("Asia/Rangoon");
     $todayDate = date('Y-m-d',strtotime('today'));
     $pending_orders=Order::where('status','=',$orderStatus)
@@ -53,6 +84,7 @@ $deleteStatus = "Delete";
 
 
     }
+
 if (isset($_SESSION['nav'])) {
     if ($_SESSION['nav']=='pending') {
         $pending=' active';
@@ -104,6 +136,9 @@ if (isset($_SESSION['nav'])) {
     $delivery_tab='';
     $cancel_tab='';
 }
+
+
+
 @endphp
 
 <main class="app-content">
@@ -114,17 +149,26 @@ if (isset($_SESSION['nav'])) {
                 <h3 class="tile-title"> Search Order History </h3>
                 <div class="tile-body">
                     <form class="row">
-                        <div class="form-group col-md-5">
+                        <div class="form-group col-md-4">
                             <label class="control-label">Start Date</label>
                             <input class="form-control" type="date" id="startDate">
                         </div>
-                        <div class="form-group col-md-5">
+                        <div class="form-group col-md-4">
                             <label class="control-label">End Date</label>
                             <input class="form-control" type="date" id="endDate">
                         </div>
-                        <div class="form-group col-md-2 align-self-end">
-                            <button class="btn btn-primary searchBtn" type="button">Search</button>
-                            <button class="btn btn-success todayBtn" type="button">Today</button>
+                        <div class="form-group col-md-4 align-self-end">
+                            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                              <label class="btn btn-primary searchBtn mr-5{{$search}}">  
+                                <input type="radio" name="options" id="option1" autocomplete="off" {{$search_chk}}> Search
+                              </label>
+                              <label class="btn btn-primary allBtn mr-5{{$alls}}"> 
+                                <input type="radio" name="options" id="option2" autocomplete="off" {{$alls_chk}}> All
+                              </label>
+                              <label class="btn btn-primary todayBtn mr-5{{$today}}">  
+                                <input type="radio" name="options" id="option3" autocomplete="off" {{$today_chk}}> Today
+                              </label>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -133,6 +177,8 @@ if (isset($_SESSION['nav'])) {
             <div class="tile">
                 @if ($label_S_date!='')
                     <h3>Search From {{$label_S_date}} To {{$label_e_date}} </h3>
+                @elseif($all!='')
+                    <h3> All data </h3>
                 @else
                     <h3> {{$todayDate}} </h3>
                 @endif
@@ -152,6 +198,7 @@ if (isset($_SESSION['nav'])) {
                                     <thead>
                                         <tr>
                                             <th class="align-middle text-center">Sr</th>
+                                            <th class="align-middle text-center">Date</th>
                                             <th class="align-middle text-center">Voucherno</th>
                                             <th class="align-middle text-center">Total</th>
                                             <th class="align-middle text-center">Action</th>
@@ -164,6 +211,7 @@ if (isset($_SESSION['nav'])) {
                                         @foreach ($pending_orders as $data)
                                             <tr>
                                                 <td class="align-middle text-center">{{$i++}}</td>
+                                                <td class="align-middle text-center">{{$data->orderdate}}</td>
                                                 <td class="align-middle text-center">{{$data->voucherno}}</td>
                                                 <td class="align-middle text-right">{{number_format($data->total)}}</td>
                                                 <td class="align-middle text-center">
@@ -209,6 +257,7 @@ if (isset($_SESSION['nav'])) {
                                     <thead>
                                         <tr>
                                             <th class="align-middle text-center">Sr</th>
+                                            <th class="align-middle text-center">Date</th>
                                             <th class="align-middle text-center">Voucherno</th>
                                             <th class="align-middle text-center">Total</th>
                                             <th class="align-middle text-center">Action</th>
@@ -221,6 +270,7 @@ if (isset($_SESSION['nav'])) {
                                         @foreach ($confirm_orders as $data)
                                             <tr>
                                                 <td class="align-middle text-center">{{$i++}}</td>
+                                                <td class="align-middle text-center">{{$data->orderdate}}</td>
                                                 <td class="align-middle text-center">{{$data->voucherno}}</td>
                                                 <td class="align-middle text-right">{{number_format($data->total)}}</td>
                                                 <td class="align-middle text-center">
@@ -256,6 +306,7 @@ if (isset($_SESSION['nav'])) {
                                     <thead>
                                         <tr>
                                             <th class="align-middle text-center">Sr</th>
+                                            <th class="align-middle text-center">Date</th>
                                             <th class="align-middle text-center">Voucherno</th>
                                             <th class="align-middle text-center">Total</th>
                                             <th class="align-middle text-center">Action</th>
@@ -268,6 +319,7 @@ if (isset($_SESSION['nav'])) {
                                         @foreach ($delivery_orders as $data)
                                             <tr>
                                                 <td class="align-middle text-center">{{$i++}}</td>
+                                                <td class="align-middle text-center">{{$data->orderdate}}</td>
                                                 <td class="align-middle text-center">{{$data->voucherno}}</td>
                                                 <td class="align-middle text-right">{{number_format($data->total)}}</td>
                                                 <td class="align-middle text-center">
@@ -293,6 +345,7 @@ if (isset($_SESSION['nav'])) {
                                     <thead>
                                         <tr>
                                             <th class="align-middle text-center">Sr</th>
+                                            <th class="align-middle text-center">Date</th>
                                             <th class="align-middle text-center">Voucherno</th>
                                             <th class="align-middle text-center">Total</th>
                                             <th class="align-middle text-center">Action</th>
@@ -305,6 +358,7 @@ if (isset($_SESSION['nav'])) {
                                         @foreach ($cancel_orders as $data)
                                             <tr>
                                                 <td class="align-middle text-center">{{$i++}}</td>
+                                                <td class="align-middle text-center">{{$data->orderdate}}</td>
                                                 <td class="align-middle text-center">{{$data->voucherno}}</td>
                                                 <td class="align-middle text-right">{{number_format($data->total)}}</td>
                                                 <td class="align-middle text-center">
@@ -367,13 +421,22 @@ $(document).ready(function(){
     $(".searchBtn").click(function(){
         var startDate = $("#startDate").val();
         var endDate = $("#endDate").val();
-        // console.log(endDate);
-        // search('startDate',startDate,'endDate',endDate,'search.php');
-        search(startDate,endDate,'{{route('search')}}')
+        if (startDate&&endDate) {
+            search(startDate,endDate,'{{route('search')}}')    
+        }else{
+            alert('empty search data');
+            search(startDate,endDate,'{{route('search')}}')  
+        }
     });
     $(".todayBtn").click(function(){
         var startDate = '';
         var endDate = '';
+
+        search(startDate,endDate,'{{route('search')}}')
+    });
+    $(".allBtn").click(function(){
+        var startDate = 'all';
+        var endDate = 'all';
 
         search(startDate,endDate,'{{route('search')}}')
     });
@@ -383,8 +446,14 @@ $(document).ready(function(){
             method:"GET",
             data:{start:start,end:end},
             success:function(data){
-                if (data=='done') {
-                    location.href= '{{route('order_list')}}';
+                if (data){
+                    if (data=='today') {
+                        location.href= '{{route('order_list')}}';
+                    }else if (data=='all') {
+                        location.href= '{{route('order_list')}}';
+                    }else{
+                        location.href= '{{route('order_list')}}';
+                    }
                 }
             }
         });
