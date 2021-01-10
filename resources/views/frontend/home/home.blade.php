@@ -68,11 +68,11 @@ use App\Items;
 
 	            <div class="MultiCarousel-inner">
 	            @php
-	            	$items=DB::table('Items')
-	            			->where('discount','>',0)
-	            			->orderBy('price','desc')
-	            			->get();
-	            	// $items=Items::all();
+	            	// $items=DB::table('Items')
+	            	// 		->where('discount','>',0)
+	            	// 		->orderBy('price','desc')
+	            	// 		->get();
+	            	$items=Items::all();
 	            @endphp
 	            @foreach($items as $item)
 	                <div class="item">
