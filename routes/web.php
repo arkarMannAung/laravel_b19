@@ -20,14 +20,14 @@ Route::middleware('role:admin')->group(function () {
 	Route::get('/dashboard','MyController@dashboard')->name('dashboard');
 	// order
 // order
-Route::get('/order/detail','OrderController@info')->name('orderinfo');
-Route::get('/order_list','OrderController@order_list')->name('order_list');
-Route::get('/status','OrderController@status')->name('status');
-Route::get('/nav','OrderController@nav')->name('nav');
-Route::get('/search','OrderController@search')->name('search');
-Route::get('/earning','OrderController@earning')->name('earning');
-Route::resource('orders','OrderController');
-Route::get('/orderdetail','OrderController@detail')->name('orderdetail');
+	Route::get('/order/detail','OrderController@info')->name('orderinfo');
+	Route::get('/order_list','OrderController@order_list')->name('order_list');
+	Route::get('/status','OrderController@status')->name('status');
+	Route::get('/nav','OrderController@nav')->name('nav');
+	Route::get('/search','OrderController@search')->name('search');
+	Route::get('/earning','OrderController@earning')->name('earning');
+	Route::resource('orders','OrderController');
+	Route::get('/orderdetail','OrderController@detail')->name('orderdetail');
 	//
 });
 

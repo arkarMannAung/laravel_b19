@@ -1,7 +1,5 @@
 @extends('backend.master.master')
 @section('body')
-
-<main class="app-content">
     <div class="app-title">
         <div>
             <h1> <i class="icofont-list"></i> Category </h1>
@@ -12,6 +10,8 @@
             </a>
         </ul>
     </div>
+<main class="app-content">
+
 
     <div class="row">
         <div class="col-md-12">
