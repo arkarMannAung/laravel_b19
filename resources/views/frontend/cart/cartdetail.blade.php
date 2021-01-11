@@ -45,7 +45,7 @@
 							</td>
 							<td colspan="3">
 								@if(Auth::user()!=null)
-									@if(Auth::user()->email_verified_at)
+									{{-- @if(Auth::user()->email_verified_at)
 									<button name='checkOut' class="btn btn-secondary btn-block mainfullbtncolor checkoutbtn"> 
 										Check Out
 									</button>	
@@ -53,7 +53,10 @@
 									<a href='{{route('verification.notice')}}' class="btn btn-secondary btn-block mainfullbtncolor checkoutbtn"> 
 										Please Verify Email!
 									</a>
-									@endif
+									@endif --}}
+									<button name='checkOut' class="btn btn-secondary btn-block mainfullbtncolor checkoutbtn"> 
+										Check Out
+									</button>
 								@else
 								<a href='{{route('login')}}' class="btn btn-secondary btn-block mainfullbtncolor checkoutbtn"> 
 									Please Signin
