@@ -32,7 +32,8 @@ Route::middleware('role:admin')->group(function () {
 });
 
 // auth
-Auth::routes(['verify' => true]);
+// Auth::routes(['verify' => true]);
+Auth::routes();
 
 // frontend
 Route::get('/','HomeController@home')->name('home');
