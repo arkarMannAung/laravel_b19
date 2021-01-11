@@ -26,15 +26,15 @@ Route::middleware('role:admin')->group(function () {
 	Route::get('/nav','OrderController@nav')->name('nav');
 	Route::get('/search','OrderController@search')->name('search');
 	Route::get('/earning','OrderController@earning')->name('earning');
-	Route::resource('orders','OrderController');
+	// Route::resource('orders','OrderController');
 	Route::get('/orderdetail','OrderController@detail')->name('orderdetail');
 	//
 });
 
 // auth
-// Auth::routes(['verify' => true]);
-Auth::routes();
-
+Auth::routes(['verify' => true]);
+// Auth::routes();
+Route::resource('orders','OrderController');
 // frontend
 Route::get('/','HomeController@home')->name('home');
 Route::get('/ordersucess','HomeController@ordersucess')->name('ordersucess');
