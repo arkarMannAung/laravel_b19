@@ -68,11 +68,11 @@ use App\Items;
 
 	            <div class="MultiCarousel-inner">
 	            @php
-	            	// $items=DB::table('Items')
-	            	// 		->where('discount','>',0)
-	            	// 		->orderBy('price','desc')
-	            	// 		->get();
-	            	$items=Items::all();
+	            	$items=DB::table('items')
+	            			->where('discount','>',0)
+	            			->orderBy('price','desc')
+	            			->get();
+	            	// $items=Items::all();
 	            @endphp
 	            @foreach($items as $item)
 	                <div class="item">
@@ -155,7 +155,7 @@ use App\Items;
 	        @endphp
 	        @foreach($subcates as $subcate)
 	            @php
-	            	$items=DB::table('Items')
+	            	$items=DB::table('items')
 	            			->where('subcategory_id','=',$subcate->id)
 	            			->orderBy('id','desc')
 	            			->limit(3)
@@ -237,7 +237,7 @@ use App\Items;
 
 	            <div class="MultiCarousel-inner">
 	            @php
-	            	$items=DB::table('Items')
+	            	$items=DB::table('items')
 	            			->inRandomOrder()
 	            			->get();
 	            @endphp
