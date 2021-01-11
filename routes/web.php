@@ -32,8 +32,8 @@ Route::middleware('role:admin')->group(function () {
 });
 
 // auth
-Auth::routes(['verify' => false]);
-// Auth::routes();
+// Auth::routes(['verify' => true]);
+Auth::routes();
 Route::resource('orders','OrderController');
 // frontend
 Route::get('/','HomeController@home')->name('home');
