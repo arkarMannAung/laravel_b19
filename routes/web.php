@@ -32,7 +32,7 @@ Route::middleware('role:admin')->group(function () {
 });
 
 // auth
-Auth::routes(['verify' => true]);
+Auth::routes(['verify' => false]);
 // Auth::routes();
 Route::resource('orders','OrderController');
 // frontend
